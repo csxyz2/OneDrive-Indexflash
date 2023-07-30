@@ -20,6 +20,12 @@ const Navbar = () => {
 
   const [tokenPresent, setTokenPresent] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+
+  useHotkeys(`${os === 'mac' ? 'meta' : 'ctrl'}+k`, e => {
+    openSearchBox()
+    e.preventDefault()
+  })
 
   useEffect(() => {
     const storedToken = () => {
@@ -61,36 +67,6 @@ const Navbar = () => {
         </Link>
 
         <div className="flex flex-1 items-center space-x-4 text-gray-700 md:flex-initial">
-          {/* Removed the search button code */}
-          {/* The rest of the code remains the same */}
-
-          {siteConfig.links.length !== 0 &&
-            siteConfig.links.map((l: { name: string; link: string }) => (
-              <a
-                key={l.name}
-                href={l.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 hover:opacity-80 dark:text-white"
-              >
-                <FontAwesomeIcon icon={['fab', l.name.toLowerCase() as IconName]} />
-                <span className="hidden text-sm font-medium md:inline-block">
-                  {
-                    // Append link name comments here to add translations
-                    // t('Weibo')
-                    t(l.name)
-                  }
-                </span>
-              </a>
-            ))}
-
-          {siteConfig.email && (
-            <a href={siteConfig.email} className="flex items-center space-x-2 hover:opacity-80 dark:text-white">
-              <FontAwesomeIcon icon={['far', 'envelope']} />
-              <span className="hidden text-sm font-medium md:inline-block">{t('Email')}</span>
-            </a>
-          )}
-
           {tokenPresent && (
             <button
               className="flex items-center space-x-2 hover:opacity-80 dark:text-white"
